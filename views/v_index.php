@@ -97,7 +97,7 @@
       <td><?=$siswa['nis']?></td>
       <td><?=$siswa['nama_lengkap']?></td>
       <td><?=$siswa['jenis_kelamin']?></td>
-      <td><?=$siswa['kelas']?></td>
+      <td><?=$siswa['nama_kelas']?></td>
       <td><?=$siswa['jurusan']?></td>
       <td><?=$siswa['alamat']?></td>
       <td><?=$siswa['golongan_darah']?></td>
@@ -139,7 +139,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <!-- JS TOASTR  -->
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-	 
+
    <script>
         $(() => {
             $('.btnDelete').on('click', function(e) {

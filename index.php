@@ -9,12 +9,13 @@
 <body>
     <?php
         include 'lib/helper.php';
-            cekLogin();
+       
+        cekLogin();
+       
         include 'lib/library.php';
 
-        cekLogin();
 
-        $sql = 'SELECT * FROM siswa';
+        $sql = 'SELECT * FROM siswa INNER JOIN kelas ON siswa.id_kelas = kelas.id_kelas';
 
         $search = @$_GET['search'];
         if(!empty($search)) $sql .= " WHERE nis LIKE '%$search%' OR nama_lengkap LIKE '%$search%' OR jenis_kelamin LIKE '%$search%' OR kelas LIKE '%$search%' OR jurusan LIKE '%$search%' OR alamat LIKE '%$search%' OR golongan_darah LIKE '%$search%' OR ibu_kandung LIKE '%$search%' ";

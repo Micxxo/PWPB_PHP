@@ -9,7 +9,7 @@
         $nis  = $_POST['nis'];
         $nama_lengkap = $_POST['nama_lengkap'];
         $jenis_kelamin = $_POST['jenis_kelamin'];
-        $kelas = $_POST['kelas'];
+        $kelas = $_POST['id_kelas'];
         $jurusan = $_POST['jurusan'];
         $alamat = $_POST['alamat'];
         $golongan_darah = $_POST['golongan_darah'];
@@ -33,7 +33,7 @@
          $sql = "UPDATE `siswa` SET `nis` = $nis,
                                     `nama_lengkap` = '$nama_lengkap',
                                     `jenis_kelamin` = '$jenis_kelamin',
-                                    `kelas` = '$kelas',
+                                    `id_kelas` = '$kelas',
                                     `jurusan` = '$jurusan',
                                     `alamat` = '$alamat',
                                     `ibu_kandung` = '$ibu_kandung',
@@ -47,6 +47,8 @@
 
     $nis = $_GET['nis'];
     if(empty($nis)) header('location: index.php');
+
+    $dataKelas = $mysqli -> query("SELECT * FROM kelas") or die($mysqli->error);
 
     $sql = "SELECT * FROM siswa WHERE nis = '$nis'";
     $query = $mysqli->query($sql);

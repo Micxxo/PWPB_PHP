@@ -64,11 +64,14 @@
 				name="jurusan"
 				value = "<?= @$siswa['jurusan']?> "
 				/>
-			<select name="kelas" id="" title="kelas" class="input p-1 rounded-md border-2 border-b-4 border-black my-3"
+			<select name="id_kelas" id="" title="kelas" class="input p-1 rounded-md border-2 border-b-4 border-black my-3"
 			>
-				<option value="XII-RPL1" <?= @$siswa['kelas'] == 'XII-RPL1' ? 'selected' : '' ?> >XII-RPL1</option>
-				<option value="XII-RPL2" <?= @$siswa['kelas'] == 'XII-RPL2' ? 'selected' : '' ?>>XII-RPL2</option>
-				<option value="XII-RPL3" <?= @$siswa['kelas'] == 'XII-RPL3' ? 'selected' : '' ?>>XII-RPL3</option>
+				<option value="">[Pilih Kelas]</option>
+				<?php while ($murid = @$dataKelas->fetch_array()) { ?>
+					<option value="<?php echo $murid['id_kelas'] ?>"><?php echo @$siswa['id_kelas'] === $murid['id_kelas'] ? 'selected' : ''?>
+						<?php echo $murid['nama_kelas'] ?>
+					</option>
+				<?php } ?>	
 			</select><br>
 			<input
 				class="input p-1 rounded-md border-2 border-b-4 border-black my-3"
@@ -105,5 +108,18 @@
 			
 			</div>
 		</form>
+
+		<?php if (!empty($success)) { ?>
+			<div class="alert absolute bottom-10 p-2 rounded-md bg-green-400 text-white left-[43%]">
+				<p><?= $success ?><p>
+			</div>
+		<?php } ?>
+
+		
+		<?php if (!empty($error)) { ?>
+			<div class="alert absolute bottom-20 p-2 rounded-md bg-red-500 text-white left-[43%]">
+				<p><?= $error ?><p>
+			</div>
+		<?php } ?>
 	</body>
 </html>
