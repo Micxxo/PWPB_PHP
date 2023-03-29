@@ -17,7 +17,7 @@
         $foto = $_FILES['foto'];
         
         if (!empty($foto) AND $foto['error'] == 0) {
-            $path = './media/images';
+            $path = './media/';
             $upload = move_uploaded_file($foto['tmp_name'], $path . $foto['name']);
 
                  // Check file size
@@ -39,10 +39,9 @@
 
         $mysqli->query($sql) or die($mysqli->error);
 
-        header('localhost: index.php');
+        header('location: index.php');
     }
-
-
+    
     include 'views/v_tambah.php';
 
 ?>

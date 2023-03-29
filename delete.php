@@ -15,6 +15,4 @@
         }
     }
 
-    include 'views/v_index.php';
-
 ?>

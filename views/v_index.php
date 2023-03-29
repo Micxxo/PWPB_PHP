@@ -7,8 +7,9 @@
 		<title>Mico XI PPLG 1</title>
 		<!-- <script src="https://cdn.tailwindcss.com"></script> -->
 		 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+		
 		 <!-- TOASTR  -->
-    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 	</head>
 	<body class="p-5 bg-[#E3E3E3]">
 		<div class="d-flex justify-content-between align-items-center mt-3 mb-5">
@@ -84,7 +85,7 @@
 			<a href="index.php?sort=ibu_kandung&order=desc">🔽<a>	
 	  </th>
       <th scope="col">Aksi</th>
-    </tr>
+    </tr>	
   </thead>
   <tbody>
 	<?php
@@ -92,7 +93,7 @@
 		while ($siswa = @$listSiswa -> fetch_array()) { ?>
     <tr>
       <th scope="row"><?=$i++?></th>
-      <td class="px-4"><img src="<?php echo base_url()?>/media/images/<?= $siswa['file']?>" width="100px" alt="foto" class="rounded"/></td>
+      <td class="px-4"><img src="<?php echo base_url()?>/media/<?= $siswa['file']?>" width="100px" alt="foto" class="rounded"/></td>
       <td><?=$siswa['nis']?></td>
       <td><?=$siswa['nama_lengkap']?></td>
       <td><?=$siswa['jenis_kelamin']?></td>
@@ -116,7 +117,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+				<button type="button" class="close" data-bs-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title"></h4>
 			</div>
 
@@ -124,51 +125,53 @@
 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary btnYa">Ya</button>	
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Tidak</button>	
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tidak</button>	
 			<div>
 		</div>
 	</div>
 </div>
 
-		  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+		  <!-- JS BOOTSTRAP  -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    
+		   <!-- JQUERY  -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- JS TOASTR  -->
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	 
+   <script>
+        $(() => {
+            $('.btnDelete').on('click', function(e) {
+                e.preventDefault()
 
-		  	 <!-- JQUERY  -->
-			<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-			<!-- JS TOASTR  -->
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-			<script type="text/javascript">
-				$(( => ){
-					$(".btnDelete").on("click", function(e) {
-						e.preventDefault();	
+                let tr = $(this).parent().parent()
+                let nama = $($(tr).children()[3]).html()
+                let href = $(this).attr('href')
 
-						let tr = $(this).parent().parent()
-						let nama = $($(tr).children()[4].html)
-						let href = $(this).attr('href')
+                $('.modal').modal('show')
+                $('.modal-title').html('Konfirmasi')
+                $('.modal-body').html(`Anda yakin ingin menghapus data <b>${nama}</b> ?`)
 
+                $('.modal .btnYa').off()
+                $('.modal .btnYa').on('click', function() {
+                    $.ajax({
+                        'url': href,
+                        'type': 'GET',
+                        'success': function(data) {
+                            if (data == 1) {
+                                $('.modal').modal('hide')
+                                tr.fadeOut()
 
-						$('.modal').modal('show')
-						$('.modal-title').html('Konfirmasi')
-						$('.modal-body').html(`Anda yakin ingin menghapus data <b>${nama}</b> ?`)
-
-						$('.modal .btnYa').off()
-						$('.modal .btnYa').on('click', function() {
-							$.ajax({
-								'url' : href,
-								'type': 'GET',
-								'success' : function(data) {
-									if (result == 1) {
-										$(".modal").modal('hide');
-										tr.fadeout();
-
-										toastr.success('Data berhasil dihapus, ' 'Informasi');
-									}else {
+                                toastr.success(`Data ${nama} berhasil dihapus`, 'BERHASIL')
+                            } else {
                                 toastr.error(`Data ${nama} gagal dihapus`, 'GAGAL')
                             }
-								}
-							})
-						});
-					})
-				})
-		  </script>
+                        }
+                    })
+                })
+            } )
+        })
+    </script>
 	</body>
 </html>

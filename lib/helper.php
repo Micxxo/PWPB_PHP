@@ -2,7 +2,7 @@
     session_start();
 
     function base_url() {
-        return "http://localhost/progweb/PHPSQL/";
+        return "http://localhost/progweb/CRUD/";
     };
 
     function flash($tipe, $pesan = '') {    

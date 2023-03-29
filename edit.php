@@ -20,7 +20,7 @@
 
 
             if(!empty($foto) && $foto['eror'] == 0 ) {
-                $path = './media/images/';
+                $path = './media/';
                 $upload = move_uploaded_file($foto['tmp_name'], $path . $foto['name']);
 
                 if (!$upload) {
